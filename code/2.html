@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //实现删除字符串中出现次数最少的字符，若出现次数最少的字符有多个，则把出现次数最少的字符都删除。
+        //输出删除这些单词后的字符串，字符串中其它字符保持原来的顺序。 
+        // 字符串只包含小写英文字母, 不考虑非法输入
+        // 例：如给你的字符串是 'aabcddd'，那么应该返回 'aaddd'
+        // 例：如给你的字符串是 'aabcdee'，那么应该返回 'aaee'
+        // 例：如给你的字符串是 'aaabcdee'，那么应该返回 'aaaee'
+        // 例：如给你的字符串是 'aaabbeeddd'，那么应该返回 'aaaddd'
+        // 请写一个函数，接收一个字符串，返回处理后的字符串
+
+        function getNewStr(str) {
+            let obj = {}
+            for (let i = 0; i < str.length; i++) {
+                if (obj[str[i]]) {
+                    obj[str[i]]++
+                } else {
+                    obj[str[i]] = 1
+                }
+            }
+            // console.log(obj);
+            //数据全部存到数组，排序最小的
+            let arr = []
+            for (let k in obj) {
+                arr.push(obj[k])
+            }
+
+            arr.sort((a, b) => {
+                return a - b
+            })
+
+            // console.log(arr);
+            //将出现最少的字符串存到数组中
+            let minStr = []
+            for (let k in obj) {
+                if (obj[k] === arr[0]) {
+                    minStr.push(k)
+                }
+            }
+            // console.log(minStr);
+            let newStr = str
+            minStr.forEach((item) => {
+                //要把最新的值赋值到外面，不然第二次会出错
+                newStr = newStr.replaceAll(`${item}`, '')
+            })
+            return newStr
+        }
+
+        let str = 'aaabbeeddd'
+        let res = getNewStr(str)
+        console.log(res);
+    </script>
+</body>
+
+</html>
